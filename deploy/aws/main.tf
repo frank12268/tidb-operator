@@ -7,13 +7,6 @@ locals {
   subnets = module.vpc.private_subnets
 }
 
-module "key-pair" {
-  source = "../modules/aws/key-pair"
-
-  name = var.eks_name
-  path = "${path.cwd}/credentials/"
-}
-
 module "vpc" {
   source = "../modules/aws/vpc"
 
@@ -31,16 +24,18 @@ module "tidb-operator" {
   eks_version        = var.eks_version
   operator_version   = var.operator_version
   config_output_path = "credentials/"
+#  subnets            = var.private_subnets
+#  vpc_id             = var.vpc_id
   subnets            = local.subnets
   vpc_id             = module.vpc.vpc_id
-  ssh_key_name       = module.key-pair.key_name
+  ssh_key_name       = aws_key_pair.lzh-ti-key.key_name
 }
 
 module "bastion" {
   source = "../modules/aws/bastion"
 
   bastion_name             = "${var.eks_name}-bastion"
-  key_name                 = module.key-pair.key_name
+  key_name                 = aws_key_pair.lzh-ti-key.key_name
   public_subnets           = module.vpc.public_subnets
   vpc_id                   = module.vpc.vpc_id
   worker_security_group_id = local.eks.worker_security_group_id

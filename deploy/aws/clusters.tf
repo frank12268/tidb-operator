@@ -47,7 +47,7 @@ module "default-cluster" {
 
   cluster_name          = var.default_cluster_name
   cluster_version       = var.default_cluster_version
-  ssh_key_name          = module.key-pair.key_name
+  ssh_key_name          = aws_key_pair.lzh-ti-key.key_name
   pd_count              = var.default_cluster_pd_count
   pd_instance_type      = var.default_cluster_pd_instance_type
   tikv_count            = var.default_cluster_tikv_count
