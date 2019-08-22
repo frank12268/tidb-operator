@@ -28,7 +28,7 @@ output "default-cluster_monitor-dns" {
   value       = module.default-cluster.monitor_hostname
 }
 
-output "bastion_ip" {
-  description = "Bastion IP address"
-  value       = module.bastion.bastion_ip
-}
+#output "bastion_ip" {
+#  description = "Bastion IP address"
+#  value       = module.bastion.bastion_ip
+#}

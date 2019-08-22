@@ -31,13 +31,13 @@ module "tidb-operator" {
   ssh_key_name       = aws_key_pair.lzh-ti-key.key_name
 }
 
-module "bastion" {
-  source = "../modules/aws/bastion"
-
-  bastion_name             = "${var.eks_name}-bastion"
-  key_name                 = aws_key_pair.lzh-ti-key.key_name
-  public_subnets           = module.vpc.public_subnets
-  vpc_id                   = module.vpc.vpc_id
-  worker_security_group_id = local.eks.worker_security_group_id
-  enable_ssh_to_workers    = true
-}
+#module "bastion" {
+#  source = "../modules/aws/bastion"
+#
+#  bastion_name             = "${var.eks_name}-bastion"
+#  key_name                 = aws_key_pair.lzh-ti-key.key_name
+#  public_subnets           = module.vpc.public_subnets
+#  vpc_id                   = module.vpc.vpc_id
+#  worker_security_group_id = local.eks.worker_security_group_id
+#  enable_ssh_to_workers    = true
+#}
