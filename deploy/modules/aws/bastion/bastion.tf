@@ -8,6 +8,12 @@ resource "aws_security_group" "accept_ssh_from_local" {
     protocol    = "tcp"
     cidr_blocks = var.bastion_ingress_cidr
   }
+  ingress {
+    from_port   = 22222
+    to_port     = 22222
+    protocol    = "tcp"
+    cidr_blocks = var.bastion_ingress_cidr
+  }
   egress {
     from_port   = 0
     to_port     = 0
@@ -35,7 +41,7 @@ module "ec2" {
   ami                         = data.aws_ami.centos.id
   instance_type               = var.bastion_instance_type
   key_name                    = var.key_name
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   monitoring                  = false
   user_data                   = file("${path.module}/bastion-userdata")
   vpc_security_group_ids      = [aws_security_group.accept_ssh_from_local.id]
