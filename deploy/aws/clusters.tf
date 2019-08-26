@@ -37,23 +37,23 @@ provider "helm" {
 #  override_values               = file("values/example.yaml")
 #}
 
-#module "default-cluster" {
-#  providers = {
-#    helm = "helm.eks"
-#  }
-#  source  = "../modules/aws/tidb-cluster"
-#  eks     = module.tidb-operator.eks
-#  subnets = var.private_subnets
-#
-#  cluster_name          = var.default_cluster_name
-#  cluster_version       = var.default_cluster_version
-#  ssh_key_name          = aws_key_pair.lzh-ti-key.key_name
-#  pd_count              = var.default_cluster_pd_count
-#  pd_instance_type      = var.default_cluster_pd_instance_type
-#  tikv_count            = var.default_cluster_tikv_count
-#  tikv_instance_type    = var.default_cluster_tikv_instance_type
-#  tidb_count            = var.default_cluster_tidb_count
-#  tidb_instance_type    = var.default_cluster_tidb_instance_type
-#  monitor_instance_type = var.default_cluster_monitor_instance_type
-#  override_values       = file("default-cluster.yaml")
-#}
+module "default-cluster" {
+  providers = {
+    helm = "helm.eks"
+  }
+  source  = "../modules/aws/tidb-cluster"
+  eks     = module.tidb-operator.eks
+  subnets = var.private_subnets
+
+  cluster_name          = var.default_cluster_name
+  cluster_version       = var.default_cluster_version
+  ssh_key_name          = aws_key_pair.lzh-ti-key.key_name
+  pd_count              = var.default_cluster_pd_count
+  pd_instance_type      = var.default_cluster_pd_instance_type
+  tikv_count            = var.default_cluster_tikv_count
+  tikv_instance_type    = var.default_cluster_tikv_instance_type
+  tidb_count            = var.default_cluster_tidb_count
+  tidb_instance_type    = var.default_cluster_tidb_instance_type
+  monitor_instance_type = var.default_cluster_monitor_instance_type
+  override_values       = file("default-cluster.yaml")
+}
